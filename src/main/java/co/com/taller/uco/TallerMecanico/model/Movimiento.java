@@ -11,12 +11,14 @@ public class Movimiento {
     private TipoEstadoEnum estadoEnum;
     private Diagnostico diagnostico;
     private Vehiculo vehiculo;
-    public List<Movimiento> movimientos;
+    private List<Movimiento> movimientos;
+    private int estado;
 
     public Movimiento(Vehiculo carro) {
         this.fechaRegistro = new Date();
         this.vehiculo = carro;
     }
+
  //Agregamos un moviemiento
     public void agregarMovimiento(Movimiento movimiento){
         this.movimientos.add(movimiento);
@@ -24,12 +26,31 @@ public class Movimiento {
 
      //Ingresamos un vehiculo
     private void ingresarVehiculo(TipoEstadoEnum tipoEstadoEnum){
-        movimientos.get(1).setEstadoEnum(TipoEstadoEnum.INGRESADO);
+        for (Movimiento movimiento : movimientos){
+        estado = TipoEstadoEnum.INGRESADO.getEstado();
+    }
     }
 
-    //Cambio estado a entregado
-    private void estadoEntregado(TipoEstadoEnum tipoEstadoEnum){
-        movimientos.get(1).setEstadoEnum(TipoEstadoEnum.ENTREGADO);
+    //Cambiar estado a en proceso
+    private void cambiarEstadoEnProceso(TipoEstadoEnum tipoEstadoEnum,Movimiento carro) {
+
+        for (Movimiento movimiento : movimientos){
+            if (carro.getEstado()!= TipoEstadoEnum.EN_PROCESO.getEstado()){
+                carro.setEstado(TipoEstadoEnum.EN_PROCESO.getEstado());
+        }
+        }
+    }
+    private void cambiarEstadoListo(TipoEstadoEnum tipoEstadoEnum,Movimiento carro) {
+
+        for (Movimiento movimiento : movimientos){
+            if (carro.getEstado() != TipoEstadoEnum.LISTO.getEstado()){
+                carro.setEstado(TipoEstadoEnum.LISTO.getEstado());
+            }
+        }
+    }
+
+    public int verEstado (){
+        return estado;
     }
 
 //GETTERS AND SETTERS
@@ -71,6 +92,22 @@ public class Movimiento {
 
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
+    }
+
+    public List<Movimiento> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<Movimiento> movimientos) {
+        this.movimientos = movimientos;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 }
 
