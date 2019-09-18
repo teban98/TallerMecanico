@@ -1,6 +1,7 @@
 package co.com.taller.uco.TallerMecanico.model;
 
 
+import co.com.taller.uco.TallerMecanico.model.businessException.ModeloNoValidoExeption;
 
 public class Vehiculo {
 
@@ -34,7 +35,11 @@ public class Vehiculo {
         this.version = version;
     }
 
-    public int getModelo() {
+    public int getModelo() throws ModeloNoValidoExeption{
+        if (modelo < 2006){
+            throw new ModeloNoValidoExeption(Mensaje.Movimiento.MODELO_INVALIDO);
+        }
+
         return modelo;
     }
 

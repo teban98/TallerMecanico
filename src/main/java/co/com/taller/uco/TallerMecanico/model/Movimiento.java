@@ -1,4 +1,5 @@
 package co.com.taller.uco.TallerMecanico.model;
+import co.com.taller.uco.TallerMecanico.model.businessException.EstadoNoValidoExeption;
 import co.com.taller.uco.TallerMecanico.model.parametros.TipoEstadoEnum;
 
 import java.util.Date;
@@ -25,14 +26,14 @@ public class Movimiento {
     }
 
      //Ingresamos un vehiculo
-    private void ingresarVehiculo(TipoEstadoEnum tipoEstadoEnum){
+    private void ingresarVehiculo(TipoEstadoEnum tipoEstadoEnum) throws EstadoNoValidoExeption {
         for (Movimiento movimiento : movimientos){
         estado = TipoEstadoEnum.INGRESADO.getEstado();
     }
     }
 
     //Cambiar estado a en proceso
-    private void cambiarEstadoEnProceso(TipoEstadoEnum tipoEstadoEnum,Movimiento carro) {
+    private void cambiarEstadoEnProceso(TipoEstadoEnum tipoEstadoEnum,Movimiento carro) throws EstadoNoValidoExeption {
 
         for (Movimiento movimiento : movimientos){
             if (carro.getEstado()!= TipoEstadoEnum.EN_PROCESO.getEstado()){
@@ -40,7 +41,7 @@ public class Movimiento {
         }
         }
     }
-    private void cambiarEstadoListo(TipoEstadoEnum tipoEstadoEnum,Movimiento carro) {
+    private void cambiarEstadoListo(TipoEstadoEnum tipoEstadoEnum,Movimiento carro) throws EstadoNoValidoExeption {
 
         for (Movimiento movimiento : movimientos){
             if (carro.getEstado() != TipoEstadoEnum.LISTO.getEstado()){
@@ -102,7 +103,10 @@ public class Movimiento {
         this.movimientos = movimientos;
     }
 
-    public int getEstado() {
+    public int getEstado() throws EstadoNoValidoExeption {
+        if(estado == estadoEnum.getEstado()){
+            throw new EstadoNoValidoExeption(Mensaje.Movimiento.MOVIMIENTO_INVALIDO);
+        }
         return estado;
     }
 

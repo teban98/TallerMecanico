@@ -1,5 +1,8 @@
 package co.com.taller.uco.TallerMecanico.model.parametros;
 
+import co.com.taller.uco.TallerMecanico.model.Mensaje;
+import co.com.taller.uco.TallerMecanico.model.businessException.EstadoNoValidoExeption;
+
 public enum TipoEstadoEnum {
 
     INGRESADO(1,"Ingresado"),
@@ -16,6 +19,7 @@ public enum TipoEstadoEnum {
     }
 
     public int getEstado() {
+
         return estado;
     }
 

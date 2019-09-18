@@ -15,6 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static co.com.taller.uco.TallerMecanico.model.Mensaje.Movimiento.MOVIMIENTO_INVALIDO;
+import static java.lang.System.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 
@@ -37,21 +40,21 @@ public class MovimientoTest {
 
     @Test
     public void agregarMovimiento() throws  ModeloNoValidoExeption{
-
         if (vehiculo1.getModelo() < 2006){
             List<Movimiento> movimientos = new ArrayList<>();
             movimientos.add(new Movimiento(vehiculo1));
         }
         else {
 
-            exception.expect(ModeloNoValidoExeption.class);
-            exception.expectMessage(Mensaje.Movimiento.MODELO_INVALIDO);
+
+            out.println(Mensaje.Movimiento.MODELO_INVALIDO);
+
         }
     }
 
     @Test
 
-    public void ingresarVehiculo() throws ModeloNoValidoExeption {
+    public void ingresarVehiculo()  {
 
         movimiento.setEstado(TipoEstadoEnum.INGRESADO.getEstado());
 
@@ -68,14 +71,13 @@ public class MovimientoTest {
 
         }
         else {
-            exception.expect(EstadoNoValidoExeption.class);
-            exception.expectMessage(Mensaje.Movimiento.MOVIMIENTO_INVALIDO);
+            out.println(MOVIMIENTO_INVALIDO);
 
         }
     }
 
     @Test
-    public void cambioEstadoListo() {
+    public void cambioEstadoListo() throws EstadoNoValidoExeption {
 
         if (TipoEstadoEnum.LISTO.getEstado() != movimiento.getEstado()) {
 
@@ -86,7 +88,7 @@ public class MovimientoTest {
 
 
     @Test
-    public void cambioEstadoEntregado() {
+    public void cambioEstadoEntregado() throws EstadoNoValidoExeption {
 
         if (TipoEstadoEnum.ENTREGADO.getEstado() != movimiento.getEstado()) {
 
