@@ -11,11 +11,11 @@ public class Vehiculo {
     private Persona propietario;
     private Cliente cliente;
 
-    public Vehiculo(String marca, String version, int modelo, Cliente cliente) {
+    public Vehiculo(String marca, String version, int modelo,String placa) {
         this.marca = marca;
         this.version = version;
         this.modelo = modelo;
-        this.cliente = cliente;
+        this.placa = placa ;
     }
 
     public String getMarca() {

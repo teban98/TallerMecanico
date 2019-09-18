@@ -1,7 +1,8 @@
 package co.com.taller.uco.TallerMecanico.model;
 
 
-import co.com.taller.uco.TallerMecanico.model.businessException.ModeloNoValido;
+import co.com.taller.uco.TallerMecanico.model.businessException.EstadoNoValidoExeption;
+import co.com.taller.uco.TallerMecanico.model.businessException.ModeloNoValidoExeption;
 import co.com.taller.uco.TallerMecanico.model.parametros.TipoEstadoEnum;
 import org.junit.Before;
 import org.junit.Rule;
@@ -12,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -36,25 +36,40 @@ public class MovimientoTest {
 
 
     @Test
-    public void agregarMovimiento() {
-        List<Movimiento> movimientos = new ArrayList<>();
-        movimientos.add(new Movimiento(vehiculo1));
+    public void agregarMovimiento() throws  ModeloNoValidoExeption{
+
+        if (vehiculo1.getModelo() < 2006){
+            List<Movimiento> movimientos = new ArrayList<>();
+            movimientos.add(new Movimiento(vehiculo1));
+        }
+        else {
+
+            exception.expect(ModeloNoValidoExeption.class);
+            exception.expectMessage(Mensaje.Movimiento.MODELO_INVALIDO);
+        }
     }
 
     @Test
 
-    public void ingresarVehiculo() throws ModeloNoValido {
+    public void ingresarVehiculo() throws ModeloNoValidoExeption {
 
         movimiento.setEstado(TipoEstadoEnum.INGRESADO.getEstado());
+
     }
 
     @Test
 
-    public void cambioEstadoEnProceso() {
+    public void cambioEstadoEnProceso() throws EstadoNoValidoExeption {
+
 
         if (TipoEstadoEnum.EN_PROCESO.getEstado() != movimiento.getEstado()) {
 
             movimiento.setEstado(TipoEstadoEnum.EN_PROCESO.getEstado());
+
+        }
+        else {
+            exception.expect(EstadoNoValidoExeption.class);
+            exception.expectMessage(Mensaje.Movimiento.MOVIMIENTO_INVALIDO);
 
         }
     }
@@ -81,5 +96,5 @@ public class MovimientoTest {
 }
 
 
-    
+
 

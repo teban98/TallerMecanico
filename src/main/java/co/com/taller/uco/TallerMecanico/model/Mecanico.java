@@ -16,16 +16,6 @@ public class Mecanico {
         this.vehiculo = vehiculo;
     }
 
-    //cambio estado
-    public void estadoEnProceso (Movimiento movimiento,TipoEstadoEnum tipoEstadoEnum){
-        movimiento.movimientos.get(1).setEstadoEnum(TipoEstadoEnum.EN_PROCESO);
-    }
-    //Cambio estado a listo
-    public void estadoListo (Movimiento movimiento,TipoEstadoEnum tipoEstadoEnum){
-        movimiento.movimientos.get(1).setEstadoEnum(TipoEstadoEnum.LISTO);
-    }
-
-
     public Persona getPersona() {
         return persona;
     }
